@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//declaraÁ„o de constantes
+//declara√ß√£o de constantes
 #define TRUE 1
 #define FALSE 0
 #define TAM 10
 
-//declaraÁ„o de tipos
+//declara√ß√£o de tipos
 typedef struct No {
 	int valor;
 	struct No* prox;
@@ -14,37 +14,37 @@ typedef struct No {
 
 typedef TNo* TLista;
 
-//declaraÁ„o de protÛtipos
-int inserir (TLista *L, int numero);
-int remover (TLista *L, int numero);
-TLista pesquisar (TLista L, int numero);
-void exibir (TLista L);
+//declara√ß√£o de prot√≥tipos
+int inserir(TLista *L, int numero);
+void limparLista(TLista *L, int tamanho);
+int remover(TLista *L, int numero);
+TLista pesquisar(TLista L, int numero);
+void exibir(TLista L);
 
 int menu ();
 
 //main
 int main ()
 {
-	//declaraÁ„o de vari·veis
+	//declara√ß√£o de vari√°veis
 	TLista L[TAM];
-  TLista pVelho[TAM];
-  TLista pNovo[TAM];
+	TLista pVelho[TAM];
+	TLista pNovo[TAM];
 	int i;
-	for(i=0; i<TAM; i++){
-		L[i] = NULL;
-		}
+
+  limparLista(L,TAM);
 
 	int opcao, num1, num2, alt, desejado, desejado1;
-  int rest, rest2, resto, resto2;
+  	int rest, rest2, resto, resto2;
 	do
 	{
-		//exibindo o menu ao usu·rio
+		//exibindo o menu ao usu√°rio
 		opcao = menu ();
 		
 		switch (opcao)
 		{
-			//inserÁ„o
-			case 1: printf ("Entre com o n˙mero a ser inserido: ");
+			//inser√ß√£o
+			case 1: printf ("Entre com o n√∫mero a ser inserido: ");
 			        scanf ("%d", &num1);
 			        rest = num1%10;
 			        if (inserir (&L[rest], num1) == TRUE) //ou apenas inserir (&L, num1)
@@ -53,12 +53,12 @@ int main ()
 					}
 					else
 					{
-						printf ("ERRO: Elemento n„o inserido!\n");
+						printf ("ERRO: Elemento n√£o inserido!\n");
 					}
 					break;
 				
-			//remoÁ„o
-			case 2: printf ("Entre com o n˙mero a ser removido: ");
+			//remo√ß√£o
+			case 2: printf ("Entre com o n√∫mero a ser removido: ");
 			        scanf ("%d", &num1);
 			        rest = num1%10;
 			        if (remover (&L[rest], num1) == TRUE)
@@ -67,14 +67,14 @@ int main ()
 					}
 					else
 					{
-						printf ("ERRO: Elemento n„o removido!\n");
+						printf ("ERRO: Elemento n√£o removido!\n");
 					}
 					break;
 				
 			//alterar
 			case 3: 
 					
-					printf ("Entre com o n˙mero a ser alterado: ");
+					printf ("Entre com o n√∫mero a ser alterado: ");
 			        scanf ("%d", &num1);
 			        rest = num1%10;
 			        pVelho[rest] = pesquisar (L[rest], num1);
@@ -100,12 +100,12 @@ int main ()
 					}
 					else
 					{
-						printf ("ERRO: Elemento n„o alterado!\n");
+						printf ("ERRO: Elemento n√£o alterado!\n");
 					}
 					break;
 				
 			//pesquisar
-			case 4: printf ("Entre com o n˙mero a ser buscado: ");
+			case 4: printf ("Entre com o n√∫mero a ser buscado: ");
 			        scanf ("%d", &num1);
 			        rest = num1%10;
 			        if (pesquisar (L[rest], num1))  
@@ -114,7 +114,7 @@ int main ()
 					}
 					else
 					{
-						printf ("Elemento n„o encontrado!\n");
+						printf ("Elemento n√£o encontrado!\n");
 					}
 					break;
 				
@@ -138,29 +138,30 @@ int main ()
 
 				break;
 
-			//saÌda
+			//sa√≠da
 			case 6: printf ("Fim do programa!");
 			        break;
 			        
-			//opÁ„o inv·lida
-			default: printf ("OpÁ„o inv·lida! Tente novamente.");
+			//op√ß√£o inv√°lida
+			default: printf ("Op√ß√£o inv√°lida! Tente novamente.");
 		}
 		
 		system ("pause");
 	}
 	while (opcao != 6);
+
 }
 
-//implementaÁ„o das funÁıes
+//implementa√ß√£o das fun√ß√µes
 int inserir (TLista *L, int numero)
 {
 	TLista aux;
 	
-	if (pesquisar (*L, numero) == NULL)  //verificando se o elemento n„o existe na lista
+	if (pesquisar (*L, numero) == NULL)  //verificando se o elemento n√£o existe na lista
 	{	
 		aux = (TLista) malloc (sizeof(TNo));
 		
-		if (!aux)  //n„o h· memÛria disponÌvel
+		if (!aux)  //n√£o h√° mem√≥ria dispon√≠vel
 		{
 			return FALSE;
 		}
@@ -252,17 +253,25 @@ void exibir (TLista L)
 	}
 }
 
+//implementa√ß√£o das fun√ß√µes
+void limparLista(TLista *L, int tamanho)
+{
+  for(int i = 0;i < tamanho; i++){
+		    L[i] = NULL;
+  }
+}
+
+
 int menu ()
 {
 	int op;
 	
 	system ("cls");
-	printf ("Menu de opÁıes:\n\n");
+	printf ("Menu de op√ß√µes:\n\n");
 	printf ("(1) Inserir\n(2) Remover\n(3) Alterar\n");
 	printf ("(4) Buscar\n(5) Exibir\n(6) Sair\n\n");
-	printf ("Entre com a sua opÁ„o: ");
+	printf ("Entre com a sua op√ß√£o: ");
 	scanf ("%d", &op);
 	
 	return op;
 }
-
